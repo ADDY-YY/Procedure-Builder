@@ -35,7 +35,9 @@ function isDraft(value: unknown): value is BuilderDocument {
 function normalizeDraft(draft: BuilderDocument): BuilderDocument {
   const procedures = draft.type === 'how-to' ? draft.procedures.map(section => ({ ...section, template: 'how-to' as const })) : draft.procedures;
   const legacyDate = /^\d{4}-\d{2}-\d{2}$/.test(draft.owner) ? draft.owner : '';
-  return { ...draft, title: draft.title.replace(/[<>]/g,''), owner: legacyDate ? '' : draft.owner, effectiveDate: legacyDate || draft.effectiveDate, procedures, schemaVersion: draft.schemaVersion ?? currentSchemaVersion };
+  const legacyGuidance = ['guidelines_rules','regulations','service_accuracy_expectations','exceptions'].flatMap(key => draft.fields[key] || []).filter(Boolean);
+  const fields = legacyGuidance.length && !(draft.fields.guidelines_regulations_exceptions || []).length ? {...draft.fields,guidelines_regulations_exceptions:legacyGuidance} : draft.fields;
+  return { ...draft, fields, title: draft.title.replace(/[<>]/g,''), owner: legacyDate ? '' : draft.owner, effectiveDate: legacyDate || draft.effectiveDate, procedures, schemaVersion: draft.schemaVersion ?? currentSchemaVersion };
 }
 
 async function migrateLegacyDrafts(database: IDBDatabase) {
