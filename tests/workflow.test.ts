@@ -62,6 +62,7 @@ templateDoc.fields.last_reviewed=['2026-09-10'];
 templateDoc.procedures[0].subsections=[{...newSection(),title:'Escalate a mismatch',steps:[{...newStep(),instruction:'Contact the branch manager.'}]}];
 const templated=renderHtml(templateDoc);
 ['#982371','#8FD4D5','#FFA412','alt="STCU"','Sections (TOC)','href="#procedure-1"','id="procedure-1"','Important!</strong>','>If</th>','>Then</th>','>Contact(s)</h3>','Revision Information','Special scenario','id="procedure-1-1"'].forEach(value=>assert(templated.includes(value)));
+assert(templated.includes('bgcolor="#D9D9D9"'));
 assert.equal(validate(templateDoc).length,0);
 templateDoc.procedures[0].subsections[0].steps=[];
 assert(validate(templateDoc).some(e=>e.includes('subsection')));
