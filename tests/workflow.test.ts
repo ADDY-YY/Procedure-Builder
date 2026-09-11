@@ -4,6 +4,7 @@ import {currentSchemaVersion,newDocument,newSection,newStep,validate,cloneDocume
 import {renderHtml,rich} from '../lib/builder/render';
 import {importAgentJson} from '../lib/builder/import';
 import {exampleDocument} from '../lib/builder/example';
+import {formatContact} from '../lib/builder/contacts';
 
 const d=newDocument();
 assert.equal(d.schemaVersion,currentSchemaVersion);
@@ -40,6 +41,7 @@ const sample=readFileSync('public/examples/agent-1.json','utf8');
 const fieldEditor=readFileSync('components/builder/fields.tsx','utf8');
 assert(!fieldEditor.includes("'• List'"));
 assert(!fieldEditor.includes("'1. List'"));
+assert.equal(formatContact(JSON.stringify({department:'Operations',extension:'1234',email:'operations@example.com'})),'Operations · Ext. 1234 · operations@example.com');
 const imported=importAgentJson(sample).document;
 assert.equal(imported.procedures.length,2);
 assert.equal(imported.procedures[0].steps.length,2);
