@@ -34,6 +34,9 @@ assert(!rich('[bad](javascript:alert(1))').includes('href='));
 assert.notEqual(cloneDocument(d).id,d.id);
 
 const sample=readFileSync('public/examples/agent-1.json','utf8');
+const fieldEditor=readFileSync('components/builder/fields.tsx','utf8');
+assert(!fieldEditor.includes("'• List'"));
+assert(!fieldEditor.includes("'1. List'"));
 const imported=importAgentJson(sample).document;
 assert.equal(imported.procedures.length,2);
 assert.equal(imported.procedures[0].steps.length,2);

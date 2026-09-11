@@ -19,7 +19,7 @@ Open the local URL printed by the server. For production, deploy the `main` bran
 - Procedure, How-To, FAQ, and Reference Guide editors driven by document type configuration.
 - Nested procedure sections, numbered and reorderable steps, lower-alpha substeps, screenshots, notes, warnings, exceptions, prerequisites, sources, and IF / THEN decisions.
 - In-editor procedure search plus undo and redo controls, including Cmd/Ctrl+Z and Cmd/Ctrl+Shift+Z.
-- Basic Markdown formatting through toolbar buttons: bold, italic, links, bullets, and numbered lists.
+- Basic Markdown formatting through toolbar buttons: bold, italic, and links. Repeated content uses dedicated Add item controls, which render as bullets where the template requires them.
 - Live preview and validated HTML generation, copy, preview, and download.
 - IndexedDB-backed local drafts with automatic save, manual save, a session recovery copy, and a one-time migration for legacy browser drafts. Incomplete drafts are allowed.
 - Agent 1 JSON import with escaped underscore normalization. Unstructured decisions remain original text until manually converted. Original imported JSON is always retained, and unmatched fields and metadata remain in the review section.
