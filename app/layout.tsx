@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { CreationFlow } from "../components/builder/creation-flow";
 
 export const metadata: Metadata = {
   title: "Procedure Builder",
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">{children}<CreationFlow /></body>
     </html>
   );
 }
