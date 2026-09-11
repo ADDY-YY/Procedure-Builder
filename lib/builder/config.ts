@@ -1,5 +1,6 @@
 import type {DocumentType} from './model';
 export const configurationVersion = 1;
+export const contentOwnerOptions = ['Knowledge Management','Operations','Frontline Support','Card Services'];
 export type FieldConfig={key:string;label:string};
 export type GroupConfig={key:string;label:string;fields:FieldConfig[]};
 const group=(key:string,label:string,labels:string[]):GroupConfig=>({key,label,fields:labels.map(label=>({key:label.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/_$/,''),label}))});
