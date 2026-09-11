@@ -7,8 +7,8 @@ export const knowledgePanels=[
  {key:'when_to_use',title:'When to use',fields:[['when_to_use','']]},
  {key:'guidelines',title:'Guidelines, Regulations, Exceptions',fields:[['guidelines_regulations_exceptions','']]},
  {key:'risks',title:'Risks & Key Controls',fields:[['risks_key_controls','']]},
- {key:'tools',title:'Tools & Resources',fields:[['systems_applications','Systems / Applications'],['forms_documents','Forms / Documents'],['links_references','Links / References'],['reports','Reports'],['contacts_resources','Contacts / Resources']]},
- {key:'other',title:'Other',fields:[['definitions_key_terms','Definitions / Key Terms'],['roles_responsibilities','Roles & Responsibilities'],['triggers','Triggers'],['inputs_prerequisites','Inputs / Prerequisites'],['outputs_results','Outputs / Results']]}
+ {key:'tools',title:'Tools & Resources',fields:[['tools_resources','']]},
+ {key:'other',title:'Other',fields:[['other','']]}
 ] as const;
 const e=escapeHtml;
 const styledRich=(v:string)=>rich(v).replace(/<p>/g,'<p style="margin:4px 0;line-height:1.5">').replace(/<ul>/g,'<ul style="margin:6px 0;padding-left:26px;list-style-type:disc">').replace(/<ol>/g,'<ol style="margin:6px 0;padding-left:26px;list-style-type:decimal">').replace(/color:#315d4c/g,'color:#0000EE');

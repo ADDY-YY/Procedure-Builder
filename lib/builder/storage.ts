@@ -38,6 +38,8 @@ function normalizeDraft(draft: BuilderDocument): BuilderDocument {
   const fieldMigrations: Array<[string,string[]]> = [
     ['guidelines_regulations_exceptions',['guidelines_rules','regulations','service_accuracy_expectations','exceptions']],
     ['risks_key_controls',['risks','controls','required_actions','audit_critical_information','warnings']],
+    ['tools_resources',['systems_applications','forms_documents','links_references','reports','contacts_resources']],
+    ['other',['definitions_key_terms','roles_responsibilities','triggers','inputs_prerequisites','outputs_results']],
   ];
   const fields = fieldMigrations.reduce<BuilderDocument>((next,[target,legacy])=>{const migrated=legacy.flatMap(key=>next.fields[key]||[]).filter(Boolean);return migrated.length&&!(next.fields[target]||[]).length?{...next,fields:{...next.fields,[target]:migrated}}:next;},{...draft,fields:draft.fields}).fields;
   return { ...draft, fields, title: draft.title.replace(/[<>]/g,''), owner: legacyDate ? '' : draft.owner, effectiveDate: legacyDate || draft.effectiveDate, procedures, schemaVersion: draft.schemaVersion ?? currentSchemaVersion };
