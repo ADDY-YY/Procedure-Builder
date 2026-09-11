@@ -185,5 +185,7 @@
 .dashboard .heading-row h1 { font-size: 0; }
 .dashboard .heading-row h1::after { content: 'Home'; font-family: Georgia, 'Times New Roman', serif; font-size: 34px; font-weight: 400; letter-spacing: -.9px; line-height: 1.2; }
 .type-card .type-icon { background: #f5eaf1; color: #982371; }
-.top-status { width: auto; height: auto; background: none; color: #982371; font-size: 10px; font-weight: 700; letter-spacing: .4px; }
-.top-status::after { content: 'PROOF OF CONCEPT, NOT FOR SENSITIVE INFO'; }
+.topbar { position: relative; height: 108px; padding: 32px 42px 0; }
+.top-status { position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 32px; display: flex; justify-content: center; background: #f5eaf1; color: #982371; font-size: 0; font-weight: 700; letter-spacing: .4px; }
+.top-status::after { content: 'PROOF OF CONCEPT, NOT FOR SENSITIVE INFO'; align-self: center; font-size: 10px; }
+@media(max-width:850px){.topbar { height: 89px; padding: 32px 20px 0; }}
