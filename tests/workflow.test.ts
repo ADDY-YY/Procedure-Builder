@@ -15,6 +15,7 @@ d.procedures.forEach((p,i)=>{p.title=`Section ${i+1}`;p.steps=['First','Second',
 assert.deepEqual(newStep().substeps,[]);
 d.procedures[0].steps[0].substeps=[{id:'substep-a',instruction:'Verify the account details.'}];
 d.procedures[0].steps.splice(1,0,{...newStep('important'),instruction:'Confirm the member is present.'},{...newStep('warning'),instruction:'Do not disclose account details.'});
+d.procedures[0].steps.splice(2,0,{...newStep('decision'),condition:'The member cannot be verified',result:'Stop and contact a supervisor.'});
 const first=d.procedures[0].steps.shift()!;
 d.procedures[0].steps.push(first);
 assert.equal(validate(d).length,0);
@@ -28,6 +29,8 @@ assert(html.includes('list-style-type:lower-alpha'));
 assert(html.includes('Verify the account details.'));
 assert(html.includes('Important!</strong> Confirm the member is present.'));
 assert(html.includes('Warning!</strong> Do not disclose account details.'));
+assert(html.includes('The member cannot be verified'));
+assert(html.includes('Stop and contact a supervisor.'));
 const dated=newDocument();dated.title='Dated';dated.purpose='Test';dated.procedures[0].title='Action';dated.procedures[0].steps[0].instruction='Complete the action.';dated.effectiveDate='2026-09-11';dated.owner='Operations';assert(renderHtml(dated).includes('September 11, 2026'));assert(renderHtml(dated).includes('Content owner:</strong> Operations'));
 const howTo=newDocument('how-to');howTo.title='Reset a profile';howTo.purpose='Restore access.';howTo.procedures[0].title='Open settings';howTo.procedures[0].purpose='Open profile settings.';howTo.procedures[0].steps=[];assert.equal(validate(howTo).length,0);const howToHtml=renderHtml(howTo);assert(howToHtml.includes('How To: Reset a profile'));assert(howToHtml.includes('Open profile settings.'));howTo.fields={use_this_article_when:['The profile cannot be opened.'],error_message_situation:['Access denied'],user_need:['Restore access'],required_access:['Sign in to the support console.'],required_apps_setup:['Open the member profile tool.'],pre_steps:['Close the previous profile.'],if_issue:['access remains blocked'],do_this:['Contact Identity Support.'],important_notes:['Do not reset a shared profile.'],submit_a_ticket:['Open an Identity Support ticket.'],contact_team:['Identity Support'],link_to_procedure:['Profile access procedure']};const completeHowTo=renderHtml(howTo);['The profile cannot be opened.','Access denied','Restore access','Sign in to the support console.','Open the member profile tool.','Close the previous profile.','access remains blocked','Contact Identity Support.','Do not reset a shared profile.','Open an Identity Support ticket.','Identity Support','Profile access procedure'].forEach(value=>assert(completeHowTo.includes(value)));
 assert(!rich('[bad](javascript:alert(1))').includes('href='));
