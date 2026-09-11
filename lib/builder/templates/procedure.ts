@@ -6,7 +6,7 @@ export const procedureTheme={magenta:'#982371',teal:'#8FD4D5',orange:'#FFA412',g
 export const knowledgePanels=[
  {key:'when_to_use',title:'When to use',fields:[['when_to_use','']]},
  {key:'guidelines',title:'Guidelines, Regulations, Exceptions',fields:[['guidelines_regulations_exceptions','']]},
- {key:'risks',title:'Risks & Key Controls',fields:[['risks','Risks'],['controls','Controls'],['required_actions','Required actions'],['audit_critical_information','Audit-critical information'],['warnings','Warnings']]},
+ {key:'risks',title:'Risks & Key Controls',fields:[['risks_key_controls','']]},
  {key:'tools',title:'Tools & Resources',fields:[['systems_applications','Systems / Applications'],['forms_documents','Forms / Documents'],['links_references','Links / References'],['reports','Reports'],['contacts_resources','Contacts / Resources']]},
  {key:'other',title:'Other',fields:[['definitions_key_terms','Definitions / Key Terms'],['roles_responsibilities','Roles & Responsibilities'],['triggers','Triggers'],['inputs_prerequisites','Inputs / Prerequisites'],['outputs_results','Outputs / Results']]}
 ] as const;

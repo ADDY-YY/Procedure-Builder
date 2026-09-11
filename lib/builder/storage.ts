@@ -35,8 +35,11 @@ function isDraft(value: unknown): value is BuilderDocument {
 function normalizeDraft(draft: BuilderDocument): BuilderDocument {
   const procedures = draft.type === 'how-to' ? draft.procedures.map(section => ({ ...section, template: 'how-to' as const })) : draft.procedures;
   const legacyDate = /^\d{4}-\d{2}-\d{2}$/.test(draft.owner) ? draft.owner : '';
-  const legacyGuidance = ['guidelines_rules','regulations','service_accuracy_expectations','exceptions'].flatMap(key => draft.fields[key] || []).filter(Boolean);
-  const fields = legacyGuidance.length && !(draft.fields.guidelines_regulations_exceptions || []).length ? {...draft.fields,guidelines_regulations_exceptions:legacyGuidance} : draft.fields;
+  const fieldMigrations: Array<[string,string[]]> = [
+    ['guidelines_regulations_exceptions',['guidelines_rules','regulations','service_accuracy_expectations','exceptions']],
+    ['risks_key_controls',['risks','controls','required_actions','audit_critical_information','warnings']],
+  ];
+  const fields = fieldMigrations.reduce<BuilderDocument>((next,[target,legacy])=>{const migrated=legacy.flatMap(key=>next.fields[key]||[]).filter(Boolean);return migrated.length&&!(next.fields[target]||[]).length?{...next,fields:{...next.fields,[target]:migrated}}:next;},{...draft,fields:draft.fields}).fields;
   return { ...draft, fields, title: draft.title.replace(/[<>]/g,''), owner: legacyDate ? '' : draft.owner, effectiveDate: legacyDate || draft.effectiveDate, procedures, schemaVersion: draft.schemaVersion ?? currentSchemaVersion };
 }
 
