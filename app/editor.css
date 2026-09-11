@@ -177,3 +177,6 @@
 .workflow-strip { display: none; }
 .dashboard .create-section { margin-top: 28px; }
 .dashboard .type-card { min-height: 128px; }
+.brand > span:last-child { font-size: 0; }
+.brand > span:last-child .brand-light { display: none; }
+.brand > span:last-child::after { content: 'STCU Procedure Builder'; font-size: 15px; font-weight: 700; }

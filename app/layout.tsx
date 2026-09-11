@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Procedure Builder",
+  title: "STCU Procedure Builder",
   description: "Create clear, consistent knowledge documents with structured content and clean HTML exports.",
   other: {
     "codex-preview": "development",
