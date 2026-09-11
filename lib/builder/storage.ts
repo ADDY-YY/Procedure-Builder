@@ -37,13 +37,17 @@ function normalizeDraft(draft: BuilderDocument): BuilderDocument {
   // The editor-owned date is stored in `owner` for compatibility with older drafts.
   // On import, seed it from the source date so it is immediately editable.
   const owner = draft.effectiveDate || draft.owner;
-  return { ...draft, owner, procedures, schemaVersion: draft.schemaVersion ?? currentSchemaVersion };
+  return { ...draft, title: draft.title.replace(/[<>]/g,''), owner, procedures, schemaVersion: draft.schemaVersion ?? currentSchemaVersion };
 }
 
 async function migrateLegacyDrafts(database: IDBDatabase) {
   const raw = localStorage.getItem(legacyStorageKey);
   if (!raw) return;
-  const legacy: unknown = JSON.parse(raw);
+  let legacy: unknown;
+  try { legacy = JSON.parse(raw); } catch {
+    localStorage.removeItem(legacyStorageKey);
+    return;
+  }
   if (!Array.isArray(legacy) || legacy.some((draft) => !isDraft(draft))) {
     throw new Error('Existing browser drafts could not be migrated. They were left unchanged.');
   }

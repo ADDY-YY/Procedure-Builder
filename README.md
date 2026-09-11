@@ -1,6 +1,6 @@
 # Procedure Builder
 
-A local-first structured knowledge document editor. React, TypeScript, Tailwind CSS, and Next.js-compatible App Router components, running on the supplied Vinext/Vite runtime. No authentication, API, or database is required.
+A local-first, STCU-oriented structured knowledge document editor. React, TypeScript, Tailwind CSS, and Next.js-compatible App Router components. No authentication, API, or database is active by default; the optional D1 example under `examples/d1` is not part of the app.
 
 ## Run locally
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by the server. For production compilation: `npm run build`.
+Open the local URL printed by the server. For production, deploy the `main` branch to Vercel; `vercel.json` runs the verified Next.js build.
 
 ## What is included
 
