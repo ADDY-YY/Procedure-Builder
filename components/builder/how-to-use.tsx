@@ -1,12 +1,15 @@
 'use client';
 
 import { CircleHelp, Download, Eye, FileOutput, FilePlus2, HardDrive, Upload, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export function HowToUse() {
   const [open, setOpen] = useState(false);
+  const [navigation, setNavigation] = useState<HTMLElement | null>(null);
+  useEffect(() => { setNavigation(document.querySelector<HTMLElement>('.sidebar nav')); }, []);
   return <>
-    <button className="sidebar-how-to" onClick={() => setOpen(true)}><CircleHelp size={17}/>How to use</button>
+    {navigation && createPortal(<button className="nav-item how-to-nav" onClick={() => setOpen(true)}><CircleHelp size={17}/>How to use</button>, navigation)}
     {open && <div className="how-to-overlay" onMouseDown={event => { if (event.target === event.currentTarget) setOpen(false); }}>
       <section className="how-to-modal" role="dialog" aria-modal="true" aria-label="How to use Procedure Builder">
         <button className="modal-close" aria-label="Close dialog" onClick={() => setOpen(false)}><X size={20}/></button>
