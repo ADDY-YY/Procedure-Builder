@@ -22,6 +22,22 @@ export function CreationFlow() {
     return () => document.removeEventListener('click', handleClick, true);
   }, []);
 
+  useEffect(() => {
+    let openedPreview: HTMLButtonElement | null = null;
+    const showPreviewForNewEditor = () => {
+      const button = Array.from(document.querySelectorAll<HTMLButtonElement>('button'))
+        .find(item => item.textContent?.trim() === 'Show preview');
+      if (button && button !== openedPreview) {
+        openedPreview = button;
+        button.click();
+      }
+    };
+    const observer = new MutationObserver(showPreviewForNewEditor);
+    observer.observe(document.body, { childList: true, subtree: true });
+    showPreviewForNewEditor();
+    return () => observer.disconnect();
+  }, []);
+
   const start = (type: DocumentType) => {
     setOpen(false);
     requestAnimationFrame(() => {
