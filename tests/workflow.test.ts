@@ -5,6 +5,7 @@ import {renderHtml,rich} from '../lib/builder/render';
 import {importAgentJson} from '../lib/builder/import';
 import {exampleDocument} from '../lib/builder/example';
 import {formatContact} from '../lib/builder/contacts';
+import {formatRevision} from '../lib/builder/revisions';
 
 const d=newDocument();
 assert.equal(d.schemaVersion,currentSchemaVersion);
@@ -43,6 +44,7 @@ const fieldEditor=readFileSync('components/builder/fields.tsx','utf8');
 assert(!fieldEditor.includes("'• List'"));
 assert(!fieldEditor.includes("'1. List'"));
 assert.equal(formatContact(JSON.stringify({department:'Operations',extension:'1234',email:'operations@example.com'})),'Operations · Ext. 1234 · operations@example.com');
+assert.equal(formatRevision(JSON.stringify({date:'2026-09-11',notes:'Updated the escalation path.'})),'September 11, 2026 — Updated the escalation path.');
 const imported=importAgentJson(sample).document;
 assert.equal(imported.procedures.length,2);
 assert.equal(imported.procedures[0].steps.length,2);
