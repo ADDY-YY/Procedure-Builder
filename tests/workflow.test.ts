@@ -49,6 +49,7 @@ const imported=importAgentJson(sample).document;
 assert.equal(imported.procedures.length,2);
 assert.equal(imported.procedures[0].steps.length,2);
 assert.equal(imported.procedures[1].steps.length,2);
+['when_to_use','guidelines_regulations_exceptions','risks_key_controls','tools_resources','other'].forEach(field=>assert(imported.fields[field]?.length));
 assert(imported.procedures[0].decisions[0].original.includes('30 days'));
 assert.equal(imported.procedures[0].decisions[0].condition,'');
 assert.equal(imported.procedures[1].decisions[0].condition,'The amount does not match the order');
