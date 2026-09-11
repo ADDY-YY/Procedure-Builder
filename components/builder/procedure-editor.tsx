@@ -12,7 +12,7 @@ function matches(value: string, query: string) {
 
 export function ProcedureStepEditor({step,onChange,allowImage=true}:{step:Step;onChange:(s:Step)=>void;allowImage?:boolean}) {
   const substeps = step.substeps || [];
-  if(step.callout==='decision')return <><TextField label="IF · condition" value={step.condition||''} onChange={condition=>onChange({...step,condition})} placeholder="Describe the condition…"/><TextField label="THEN · result" value={step.result||''} onChange={result=>onChange({...step,result})} placeholder="Describe the required action…"/></>;
+  if(step.callout==='decision')return <><RichTextField label="IF · condition" value={step.condition||''} onChange={condition=>onChange({...step,condition})} placeholder="Describe the condition…"/><RichTextField label="THEN · result" value={step.result||''} onChange={result=>onChange({...step,result})} placeholder="Describe the required action…"/></>;
   return <>
     <RichTextField label={step.callout==='important'?'Important information':step.callout==='warning'?'Warning':"Instruction"} required value={step.instruction} onChange={instruction=>onChange({...step,instruction})} placeholder={step.callout?'Write the callout…':"Describe what the reader needs to do…"}/>
     {!step.callout&&<details className="minor-details" open={substeps.length>0}>
