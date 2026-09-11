@@ -28,7 +28,7 @@ assert(html.includes('list-style-type:lower-alpha'));
 assert(html.includes('Verify the account details.'));
 assert(html.includes('Important!</strong> Confirm the member is present.'));
 assert(html.includes('Warning!</strong> Do not disclose account details.'));
-const dated=newDocument();dated.title='Dated';dated.purpose='Test';dated.procedures[0].title='Action';dated.procedures[0].steps[0].instruction='Complete the action.';dated.effectiveDate='2026-09-11';dated.owner='Operations';assert(renderHtml(dated).includes('September 11, 2026'));assert(!renderHtml(dated).includes('Operations'));
+const dated=newDocument();dated.title='Dated';dated.purpose='Test';dated.procedures[0].title='Action';dated.procedures[0].steps[0].instruction='Complete the action.';dated.effectiveDate='2026-09-11';dated.owner='Operations';assert(renderHtml(dated).includes('September 11, 2026'));assert(renderHtml(dated).includes('Content owner:</strong> Operations'));
 const howTo=newDocument('how-to');howTo.title='Reset a profile';howTo.purpose='Restore access.';howTo.procedures[0].title='Open settings';howTo.procedures[0].purpose='Open profile settings.';howTo.procedures[0].steps=[];assert.equal(validate(howTo).length,0);const howToHtml=renderHtml(howTo);assert(howToHtml.includes('How To: Reset a profile'));assert(howToHtml.includes('Open profile settings.'));howTo.fields={use_this_article_when:['The profile cannot be opened.'],error_message_situation:['Access denied'],user_need:['Restore access'],required_access:['Sign in to the support console.'],required_apps_setup:['Open the member profile tool.'],pre_steps:['Close the previous profile.'],if_issue:['access remains blocked'],do_this:['Contact Identity Support.'],important_notes:['Do not reset a shared profile.'],submit_a_ticket:['Open an Identity Support ticket.'],contact_team:['Identity Support'],link_to_procedure:['Profile access procedure']};const completeHowTo=renderHtml(howTo);['The profile cannot be opened.','Access denied','Restore access','Sign in to the support console.','Open the member profile tool.','Close the previous profile.','access remains blocked','Contact Identity Support.','Do not reset a shared profile.','Open an Identity Support ticket.','Identity Support','Profile access procedure'].forEach(value=>assert(completeHowTo.includes(value)));
 assert(!rich('[bad](javascript:alert(1))').includes('href='));
 assert.notEqual(cloneDocument(d).id,d.id);
@@ -70,4 +70,11 @@ assert(validate(templateDoc).some(e=>e.includes('subsection')));
 const nested=importAgentJson(JSON.stringify({document:{title:'Nested',purpose:'Example'},procedures:[{title:'Parent',steps:['One'],subsections:[{title:'Child',steps:['Nested one','Nested two']}]}]})).document;
 assert.equal(nested.procedures[0].subsections?.[0].steps.length,2);
 assert.equal(nested.procedures[0].steps.length,1);
+for(const [type,collection,item] of [
+  ['decision-table','scenarios',{scenario:'A card is declined',solution:'Check the account status.'}],
+  ['job-aid-one-column','items',{title:'Verify identity',action:'Confirm the member details.'}],
+  ['job-aid-two-column','items',{title:'First action',action:'Complete the first action.'}],
+  ['quick-reference','sections',{title:'Contact',content:'Call Operations.'}],
+] as const){const importedType=importAgentJson(JSON.stringify({document:{document_type:type,title:'Imported',purpose:'Test'},[collection]:[item]})).document;assert.equal(importedType.type,type);assert.equal(importedType.entries.length,1);assert(importedType.entries[0].content.length>0);}
+const ownerDocument=newDocument('faq');ownerDocument.title='Owner';ownerDocument.purpose='Test';ownerDocument.owner='Operations';ownerDocument.effectiveDate='2026-09-11';ownerDocument.entries=[{id:'entry',title:'Question',content:'Answer'}];assert(renderHtml(ownerDocument).includes('Content owner:</strong> Operations'));
 console.log('PASS: template tokens, linked contents, IF/THEN table, important content, contacts, revisions, subcategories, nested subsections, and validation.');
