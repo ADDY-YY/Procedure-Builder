@@ -167,3 +167,13 @@
 .step-add-actions .add-wide { flex: 1; min-width: 160px; }
 .callout-important { border-left: 4px solid #982371; }
 .callout-warning { border-left: 4px solid #e77900; }
+.sidebar-tip,
+.app-footer,
+.dashboard .eyebrow,
+.dashboard .heading-row p,
+.dashboard .section-title > span,
+.dashboard .type-card p,
+.dashboard .start-label,
+.workflow-strip { display: none; }
+.dashboard .create-section { margin-top: 28px; }
+.dashboard .type-card { min-height: 128px; }
