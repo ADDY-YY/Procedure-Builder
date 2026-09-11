@@ -180,3 +180,5 @@
 .brand > span:last-child { font-size: 0; }
 .brand > span:last-child .brand-light { display: none; }
 .brand > span:last-child::after { content: 'STCU Procedure Builder'; font-size: 15px; font-weight: 700; }
+.brand { gap: 0; }
+.brand-mark { display: none; }
