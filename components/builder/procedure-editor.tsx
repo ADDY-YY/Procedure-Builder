@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { ImagePlus, Plus, Redo2, Search, Undo2, X } from 'lucide-react';
 import { newSection, newStep, uid, type ProcedureSection, type Step } from '../../lib/builder/model';
 import { sectionLabels } from '../../lib/builder/config';
-import { TextField, RichTextField, RepeatableList, SectionCard, ItemActions, move } from './fields';
+import { TextField, RichTextArea, RichTextField, RepeatableList, SectionCard, ItemActions, move } from './fields';
 
 function matches(value: string, query: string) {
   return !query.trim() || value.toLowerCase().includes(query.trim().toLowerCase());
@@ -19,7 +19,7 @@ export function ProcedureStepEditor({step,onChange,allowImage=true}:{step:Step;o
       <summary>Substeps <span className="muted">Automatically lettered</span></summary>
       {substeps.map((substep,index)=><div className="substep-row" key={substep.id}>
         <span className="substep-letter">{String.fromCharCode(97+index)}.</span>
-        <textarea aria-label={`Substep ${index+1}`} value={substep.instruction} onChange={event=>onChange({...step,substeps:substeps.map((item,itemIndex)=>itemIndex===index?{...item,instruction:event.target.value}:item)})} placeholder="Add a supporting action…"/>
+        <RichTextArea ariaLabel={`Substep ${index+1}`} value={substep.instruction} onChange={instruction=>onChange({...step,substeps:substeps.map((item,itemIndex)=>itemIndex===index?{...item,instruction}:item)})} placeholder="Add a supporting action…"/>
         <ItemActions index={index} length={substeps.length} onMove={to=>onChange({...step,substeps:move(substeps,index,to)})} onDelete={()=>onChange({...step,substeps:substeps.filter((_,itemIndex)=>itemIndex!==index)})}/>
       </div>)}
       <button className="text-button" onClick={()=>onChange({...step,substeps:[...substeps,{id:uid(),instruction:''}]})}><Plus size={14}/>Add substep</button>
@@ -50,7 +50,7 @@ export function ProcedureEditor({sections,onChange,depth=0,onUndo,onRedo,canUndo
         </div>;})}
         {!section.steps.length&&<p className="empty-inline">Add the first step in this section.</p>}
         <div className="step-add-actions"><button className="add-wide" onClick={()=>update(index,{...section,steps:[...section.steps,newStep()]})}><Plus size={15}/>Add step</button><button className="secondary" onClick={()=>update(index,{...section,steps:[...section.steps,newStep('important')]})}><Plus size={15}/>Add important card</button><button className="secondary" onClick={()=>update(index,{...section,steps:[...section.steps,newStep('warning')]})}><Plus size={15}/>Add warning card</button><button className="secondary" onClick={()=>update(index,{...section,steps:[...section.steps,newStep('decision')]})}><Plus size={15}/>Add decision table</button></div></>}
-        {!isHowTo&&<>{['sources'].map(key=><details className="minor-details" key={key}><summary>{sectionLabels[key]} <span className="muted">{(section[key as keyof ProcedureSection] as string[]).length} items</span></summary><RepeatableList label={sectionLabels[key]} items={section[key as keyof ProcedureSection] as string[]} onChange={items=>update(index,{...section,[key]:items})}/></details>)}<TextField label="Expected result" value={section.expectedResult} onChange={expectedResult=>update(index,{...section,expectedResult})}/>{depth===0&&<details className="minor-details"><summary>Subsections <span className="muted">{section.subsections?.length||0} items</span></summary><p className="empty-inline">Subsections use teal headings in your procedure template.</p><ProcedureEditor depth={1} sections={section.subsections||[]} onChange={subsections=>update(index,{...section,subsections})}/></details>}</>}
+        {!isHowTo&&<>{['sources'].map(key=><details className="minor-details" key={key}><summary>{sectionLabels[key]} <span className="muted">{(section[key as keyof ProcedureSection] as string[]).length} items</span></summary><RepeatableList label={sectionLabels[key]} items={section[key as keyof ProcedureSection] as string[]} onChange={items=>update(index,{...section,[key]:items})}/></details>)}<RichTextField label="Expected result" value={section.expectedResult} onChange={expectedResult=>update(index,{...section,expectedResult})}/>{depth===0&&<details className="minor-details"><summary>Subsections <span className="muted">{section.subsections?.length||0} items</span></summary><p className="empty-inline">Subsections use teal headings in your procedure template.</p><ProcedureEditor depth={1} sections={section.subsections||[]} onChange={subsections=>update(index,{...section,subsections})}/></details>}</>}
       </SectionCard>;
     })}
     <button className="add-wide" onClick={()=>{const section=newSection();if(isHowTo){section.template='how-to';section.steps=[];}onChange([...sections,section]);}}><Plus size={16}/>{depth?'Add subsection':isHowTo?'Add step':'Add procedure section'}</button>
