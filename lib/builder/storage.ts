@@ -41,7 +41,10 @@ function normalizeDraft(draft: BuilderDocument): BuilderDocument {
     ['tools_resources',['systems_applications','forms_documents','links_references','reports','contacts_resources']],
     ['other',['definitions_key_terms','roles_responsibilities','triggers','inputs_prerequisites','outputs_results']],
   ];
-  const fields = fieldMigrations.reduce<BuilderDocument>((next,[target,legacy])=>{const migrated=legacy.flatMap(key=>next.fields[key]||[]).filter(Boolean);return migrated.length&&!(next.fields[target]||[]).length?{...next,fields:{...next.fields,[target]:migrated}}:next;},{...draft,fields:draft.fields}).fields;
+  const migratedFields = fieldMigrations.reduce<BuilderDocument>((next,[target,legacy])=>{const migrated=legacy.flatMap(key=>next.fields[key]||[]).filter(Boolean);return migrated.length&&!(next.fields[target]||[]).length?{...next,fields:{...next.fields,[target]:migrated}}:next;},{...draft,fields:draft.fields}).fields;
+  const legacyRevisions=[...(migratedFields.revision_history||[]).map(notes=>JSON.stringify({date:'',notes})),...(migratedFields.last_reviewed||[]).map(date=>JSON.stringify({date,notes:''}))];
+  const {revision_history,last_reviewed,...fieldsWithoutLegacyRevisions}=migratedFields;
+  const fields=legacyRevisions.length?{...fieldsWithoutLegacyRevisions,revision_information:[...(migratedFields.revision_information||[]),...legacyRevisions]}:fieldsWithoutLegacyRevisions;
   return { ...draft, fields, title: draft.title.replace(/[<>]/g,''), owner: legacyDate ? '' : draft.owner, effectiveDate: legacyDate || draft.effectiveDate, procedures, schemaVersion: draft.schemaVersion ?? currentSchemaVersion };
 }
 
