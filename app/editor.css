@@ -184,3 +184,4 @@
 .brand-mark { display: none; }
 .dashboard .heading-row h1 { font-size: 0; }
 .dashboard .heading-row h1::after { content: 'Home'; font-family: Georgia, 'Times New Roman', serif; font-size: 34px; font-weight: 400; letter-spacing: -.9px; line-height: 1.2; }
+.type-card .type-icon { background: #f5eaf1; color: #982371; }
