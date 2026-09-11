@@ -163,3 +163,7 @@
 }
 .top-status > svg, .top-status .avatar { display: none; }
 .effective-date-field small { display: block; margin-top: 6px; color: #737373; font-size: 11px; }
+.step-add-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.step-add-actions .add-wide { flex: 1; min-width: 160px; }
+.callout-important { border-left: 4px solid #982371; }
+.callout-warning { border-left: 4px solid #e77900; }
