@@ -165,6 +165,7 @@
 .effective-date-field small { display: block; margin-top: 6px; color: #737373; font-size: 11px; }
 .step-add-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .step-add-actions .add-wide { flex: 1; min-width: 160px; }
+.step-add-actions{display:grid;grid-template-columns:1fr;gap:8px}.step-add-actions .add-wide,.step-add-actions .secondary{width:100%;min-width:0;min-height:40px;justify-content:flex-start;padding:0 14px}
 .callout-important { border-left: 4px solid #982371; }
 .callout-warning { border-left: 4px solid #e77900; }
 .sidebar-tip,
