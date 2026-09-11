@@ -1,0 +1,4 @@
+export const escapeHtml=(v:string)=>v.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
+export const safeUrl=(s:string,image=false)=>/^(https?:\/\/)/i.test(s)||(image?/^data:image\/(png|jpeg|gif|webp);base64,[A-Za-z0-9+/=]+$/.test(s):/^mailto:/i.test(s));
+export function inline(v:string){return escapeHtml(v).replace(/\[([^\]]+)\]\(([^)]+)\)/g,(_,label,url)=>safeUrl(url)?`<a href="${url}" style="color:#315d4c">${label}</a>`:label).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');}
+export function rich(v:string){let out='',list='';for(const line of v.split('\n')){const match=line.match(/^\s*(- |\d+\. )(.*)/);if(match){const kind=match[1]==='- '?'ul':'ol';if(list!==kind){if(list)out+=`</${list}>`;out+=`<${kind}>`;list=kind;}out+=`<li>${inline(match[2])}</li>`;}else{if(list){out+=`</${list}>`;list='';}if(line.trim())out+=`<p>${inline(line)}</p>`;}}return out+(list?`</${list}>`:'');}

@@ -1,0 +1,15 @@
+{
+  "document": {"document_type":"procedure","title":"Foreign currency member pickup","audience":"Branch team members","purpose":"Provide a consistent, secure process for handing over foreign currency orders.","content_owner":"Branch Operations","effective_date":"2026-09-10"},
+  "basic_knowledge":{"when_to_use":["A member arrives to collect a foreign currency order."]},
+  "guidelines_regulations_exceptions":{"guidelines":["Verify the member before releasing an order."]},
+  "risks_controls":{"controls":["Match identification to the order record."]},
+  "tools_resources":{"systems":["Currency ordering system"]},
+  "roles_responsibilities":[{"role":"Branch team member","responsibility":"Verify identity and record the collection."}],
+  "triggers_inputs_outputs":{"triggers":["Member requests collection"],"inputs":["Order confirmation","Photo ID"],"outputs":["Completed collection record"]},
+  "procedures":[
+    {"id":"P001","title":"Verify the member and order","steps":[{"id":"P001-S01","instruction":"Ask the member for a valid photo ID."},{"id":"P001-S02","instruction":"Locate the order and match the member’s details."}],"important_information":["Keep the order reference available."],"decision_logic":[{"id":"P001-DL01","content":"If the member does not pick up within 30 days, use the Unclaimed Orders workflow.","status":"SUPPORTED","source":"Member Pick Up"}],"warnings":[],"exceptions":["Contact the branch manager if verification cannot be completed."]},
+    {"id":"P002","title":"Complete the pickup","steps":[{"instruction":"Count the currency with the member."},{"instruction":"Record collection and provide a receipt."}],"decision_logic":[{"if":"The amount does not match the order","then":"Pause and ask the branch manager to reconcile the difference."}],"warnings":["Do not release currency until verification is complete."],"expected_result":"The order is collected and recorded."}
+  ],
+  "migration_concerns":{"review_needed":"Confirm the current unclaimed order policy before publishing."},
+  "other_information":["Sample content only; adapt it to your organization’s policy."]
+}

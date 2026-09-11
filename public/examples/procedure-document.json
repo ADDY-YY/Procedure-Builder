@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 2,
+  "id": "example-member-pickup",
+  "type": "procedure",
+  "title": "Foreign currency member pickup",
+  "audience": "Branch team members",
+  "purpose": "Provide a consistent, secure process for handing over foreign currency orders to members.",
+  "owner": "Branch Operations",
+  "effectiveDate": "2026-09-10",
+  "modified": "2026-09-11T15:06:05.867Z",
+  "fields": {
+    "when_to_use": [
+      "A member arrives at the branch to collect their foreign currency order."
+    ]
+  },
+  "procedures": [
+    {
+      "id": "e321124f-ecf0-4640-8967-969ffdeab8e6",
+      "title": "Verify the member and order",
+      "purpose": "Confirm the order is ready and the member is authorized to collect it.",
+      "prerequisites": [],
+      "steps": [
+        {
+          "id": "79e862d8-1b46-49b8-a470-2972fc3d8237",
+          "instruction": "Ask the member for a valid government-issued photo ID.",
+          "image": "",
+          "description": "",
+          "substeps": []
+        },
+        {
+          "id": "16b48fbe-d41d-45f8-a4d2-4e00093c7163",
+          "instruction": "Locate the order in the currency ordering system.",
+          "image": "",
+          "description": "",
+          "substeps": []
+        },
+        {
+          "id": "17b667c4-7d5b-402e-a2b1-a511e97a7e0a",
+          "instruction": "Match the member’s details to the order confirmation.",
+          "image": "",
+          "description": "",
+          "substeps": []
+        }
+      ],
+      "decisions": [
+        {
+          "id": "example-decision",
+          "condition": "The member’s details do not match the order",
+          "result": "Pause the pickup and contact the branch manager.",
+          "original": ""
+        }
+      ],
+      "notes": [
+        "Keep the order reference available throughout the pickup process."
+      ],
+      "exceptions": [],
+      "warnings": [],
+      "expectedResult": "",
+      "sources": []
+    },
+    {
+      "id": "3042b975-f639-4f71-84e8-3cc5e088229f",
+      "title": "Complete the pickup",
+      "purpose": "",
+      "prerequisites": [],
+      "steps": [
+        {
+          "id": "499c622f-32c3-4d22-ad93-99e87fd80eec",
+          "instruction": "Count the currency with the member.",
+          "image": "",
+          "description": "",
+          "substeps": []
+        },
+        {
+          "id": "d616b8ec-a76e-400e-8fef-4f9c365bb6af",
+          "instruction": "Record the collection and provide a receipt.",
+          "image": "",
+          "description": "",
+          "substeps": []
+        }
+      ],
+      "decisions": [],
+      "notes": [],
+      "exceptions": [],
+      "warnings": [
+        "Do not release currency until identity verification is complete."
+      ],
+      "expectedResult": "The member receives their order and the collection is recorded.",
+      "sources": []
+    }
+  ],
+  "entries": [],
+  "unmapped": null
+}
