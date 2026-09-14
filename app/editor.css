@@ -21,6 +21,8 @@
 .substep-row textarea { min-height: 44px; font-size: 11px; }
 .substep-letter { font-weight: 700; min-width: 15px; padding-top: 10px; }
 .substep-row .item-actions { padding-top: 6px; }
+.repeat-item > .rich, .substep-row > .rich { flex: 1 1 auto; min-width: 0; }
+.if-then-pair .field > .rich { width: 100%; }
 
 @media (max-width: 640px) {
   .procedure-toolbar { align-items: stretch; flex-direction: column; }
